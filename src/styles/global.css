@@ -55,7 +55,7 @@ h3 { font-size: clamp(1.35rem, 3vw, 2rem); }
 .page-heading h1 { max-width: none; }
 .article { max-width: 880px; margin: 0 auto; padding: clamp(1.5rem, 5vw, 4rem); }
 .article-header { padding-bottom: 2rem; border-bottom: 1px solid var(--line); }
-.article-header h1 { max-width: 12ch; margin-top: 0.5rem; }
+.article-header h1 { font-size: clamp(2.4rem, 6vw, 4.9rem); line-height: 0.98; max-width: 18ch; margin-top: 0.5rem; text-wrap: balance; }
 .tag-list { list-style: none; flex-wrap: wrap; padding: 0; margin: 1.5rem 0 0; }
 .tag-list li { padding: 0.4rem 0.7rem; border-radius: 999px; background: rgba(180, 95, 60, 0.12); color: var(--accent-dark); font-weight: 700; font-size: 0.88rem; }
 .prose { color: #2f3a46; font-size: 1.08rem; line-height: 1.85; padding-top: 1.5rem; }
@@ -73,7 +73,7 @@ h3 { font-size: clamp(1.35rem, 3vw, 2rem); }
   .hero { padding: 32px 24px; border-radius: 28px; }
   .hero-actions { flex-direction: column; align-items: stretch; }
   h1 { font-size: clamp(2.7rem, 16vw, 4.5rem); }
-  .article-header h1 { max-width: none; }
+  .article-header h1 { font-size: clamp(2.15rem, 10.5vw, 3.6rem); max-width: none; }
 }
 
 
