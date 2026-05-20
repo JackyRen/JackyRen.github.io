@@ -29,36 +29,40 @@ canonicalId: hermes-kanban-offload-under-1gb
 
 现在的结构大概是这样：
 
-```text
-                 ┌──────────────────────────-┐
-                 │  Central Hermes           │
-                 │  lightweight boss         │
-                 │  plan / dispatch / review │
-                 └─────────────┬────────────-┘
-                               │ Kanban cards
-                               ▼
-                 ┌──────────────────────────-┐
-                 │  durable task state       │
-                 │  parent/child deps        │
-                 │  max-runtime / retries    │
-                 └──────┬────────┬──────────-┘
-                        │        │
-        ┌───────────────┘        └────────────────┐
-        ▼                                         ▼
-┌─────────────────┐                     ┌─────────────────┐
-│ blog node       │                     │ browser node    │
-│ blog worker     │                     │ frontend worker │
-│ blog / ops / PR │                     │ React / browser │
-└─────────────────┘                     └─────────────────┘
-        │
-        └──────────────────┐
-                           ▼
-                   ┌─────────────────┐
-                   │ document node   │
-                   │ OCR worker      │
-                   │ OCR / documents │
-                   └─────────────────┘
-```
+<figure class="offload-diagram" style="margin: 1.5rem 0; padding: 1rem; border-radius: 18px; background: #0f172a; border: 1px solid rgba(148,163,184,.35); overflow: hidden;">
+  <svg role="img" aria-label="Hermes Kanban offload architecture" viewBox="0 0 760 430" width="100%" style="display:block; max-width: 760px; height: auto; margin: 0 auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">
+    <defs>
+      <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#cbd5e1"/></marker>
+      <marker id="arrow-soft" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#94a3b8"/></marker>
+    </defs>
+    <rect x="1" y="1" width="758" height="428" rx="18" fill="#0f172a"/>
+    <rect x="230" y="24" width="300" height="82" rx="14" fill="#111827" stroke="#38bdf8" stroke-width="2"/>
+<text x="248" y="52" fill="#e5edf7" font-size="16" font-weight="700">Central Hermes</text>
+<text x="248" y="74" fill="#e5edf7" font-size="13" font-weight="500">轻量 boss</text>
+<text x="248" y="96" fill="#e5edf7" font-size="13" font-weight="500">计划 / 派工 / 验收</text>
+    <line x1="380" y1="106" x2="380" y2="148" stroke="#cbd5e1" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="398" y="134" fill="#cbd5e1" font-size="13">dispatch</text>
+    <rect x="230" y="155" width="300" height="88" rx="14" fill="#111827" stroke="#a78bfa" stroke-width="2"/>
+<text x="248" y="183" fill="#e5edf7" font-size="16" font-weight="700">Kanban cards</text>
+<text x="248" y="205" fill="#e5edf7" font-size="13" font-weight="500">durable task state</text>
+<text x="248" y="227" fill="#e5edf7" font-size="13" font-weight="500">依赖 / 重试 / block reason</text>
+    <path d="M380 243 L380 257 L135 257 L135 272" fill="none" stroke="#cbd5e1" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M380 243 L380 272" fill="none" stroke="#cbd5e1" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M380 243 L380 257 L625 257 L625 272" fill="none" stroke="#cbd5e1" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="35" y="275" width="200" height="82" rx="14" fill="#111827" stroke="#93c5fd" stroke-width="2"/>
+<text x="53" y="303" fill="#e5edf7" font-size="16" font-weight="700">blog worker</text>
+<text x="53" y="325" fill="#e5edf7" font-size="13" font-weight="500">博客 / 运维 / PR</text>
+<rect x="280" y="275" width="200" height="82" rx="14" fill="#111827" stroke="#93c5fd" stroke-width="2"/>
+<text x="298" y="303" fill="#e5edf7" font-size="16" font-weight="700">frontend worker</text>
+<text x="298" y="325" fill="#e5edf7" font-size="13" font-weight="500">React / 浏览器验证</text>
+<rect x="525" y="275" width="200" height="82" rx="14" fill="#111827" stroke="#93c5fd" stroke-width="2"/>
+<text x="543" y="303" fill="#e5edf7" font-size="16" font-weight="700">document worker</text>
+<text x="543" y="325" fill="#e5edf7" font-size="13" font-weight="500">OCR / 文档流水线</text>
+    <path d="M135 357 C135 398 625 398 625 357" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#arrow-soft)"/>
+    <text x="304" y="407" fill="#94a3b8" font-size="13">evidence back</text>
+  </svg>
+  <figcaption style="margin-top: .75rem; color: #64748b; font-size: .9rem; text-align: center;">中央 Hermes 只负责编排和验收；Kanban 保存任务状态；worker team 在各自节点上执行并回传证据。</figcaption>
+</figure>
 
 中央 Hermes 的职责很轻：把目标写成 Kanban card，草拟验收标准，必要时拆出 parent/child 依赖，然后等 worker 回传结果。卡片是 durable state，不是临时聊天窗口里的几行字。任务正文、评论、运行记录、block 原因、完成 handoff 和后续依赖都在里面。
 
