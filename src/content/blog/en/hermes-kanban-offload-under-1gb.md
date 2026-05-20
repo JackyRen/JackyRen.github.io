@@ -1,5 +1,5 @@
 ---
-title: How I kept Hermes Kanban under 1GB by offloading work to other nodes
+title: Keeping Hermes Kanban under 1GB with offloaded workers
 description: A practical note on keeping the central Hermes thread light while worker teams handle builds, browser checks, OCR, and reviewable handoffs through Kanban cards.
 pubDate: 2026-05-20
 tags: [Hermes, Kanban, Agent, Infrastructure]
