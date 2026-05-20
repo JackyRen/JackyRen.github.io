@@ -1,0 +1,38 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { findTranslation, languageRole, postSlug, postUrl, type SiteLang } from '@/lib/blog';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog')).filter((post) => !post.data.draft);
+  return posts.map((post) => ({
+    params: { lang: post.data.lang, slug: postSlug(post) },
+    props: { post },
+  }));
+}
+const { post } = Astro.props;
+const allPosts = (await getCollection('blog')).filter((entry) => !entry.data.draft);
+const { Content } = await render(post);
+const zhPost = findTranslation(post, allPosts, 'zh');
+const enPost = findTranslation(post, allPosts, 'en');
+const locale = post.data.lang === 'zh' ? 'zh-CN' : 'en';
+const formattedDate = post.data.pubDate.toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' });
+const role = languageRole(post);
+---
+<BaseLayout title={post.data.title} description={post.data.description} lang={post.data.lang as SiteLang} zhHref={zhPost && postUrl(zhPost)} enHref={enPost && postUrl(enPost)}>
+  <article class="article">
+    <header class="article-header">
+      <a class="back-link" href="/blog/">← {post.data.lang === 'zh' ? '返回归档' : 'Back to archive'}</a>
+      <p class="eyebrow">{formattedDate} · {post.data.lang.toUpperCase()} · {role}</p>
+      <h1>{post.data.title}</h1>
+      <p>{post.data.description}</p>
+      <dl class="content-meta">
+        <div><dt>Original language</dt><dd>{post.data.originalLang.toUpperCase()}</dd></div>
+        <div><dt>Canonical ID</dt><dd>{post.data.canonicalId}</dd></div>
+        {post.data.translationOf && <div><dt>Translation of</dt><dd>{post.data.translationOf}</dd></div>}
+      </dl>
+      {post.data.tags.length > 0 && (<ul class="tag-list" aria-label="Post tags">{post.data.tags.map((tag) => <li>{tag}</li>)}</ul>)}
+    </header>
+    <div class="prose"><Content /></div>
+  </article>
+</BaseLayout>

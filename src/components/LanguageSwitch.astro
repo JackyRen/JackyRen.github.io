@@ -1,0 +1,13 @@
+---
+import type { SiteLang } from '@/lib/blog';
+interface Props {
+  current?: SiteLang;
+  zhHref?: string;
+  enHref?: string;
+}
+const { current = 'zh', zhHref, enHref } = Astro.props;
+---
+<div class="language-switch" data-language-switch aria-label="Language switch">
+  {zhHref ? <a class:list={['language-switch__item', { 'is-active': current === 'zh' }]} href={zhHref} lang="zh">中文</a> : <button class:list={['language-switch__item', { 'is-active': current === 'zh' }]} type="button" data-set-lang="zh" lang="zh">中文</button>}
+  {enHref ? <a class:list={['language-switch__item', { 'is-active': current === 'en' }]} href={enHref} lang="en">EN</a> : <button class:list={['language-switch__item', { 'is-active': current === 'en' }]} type="button" data-set-lang="en" lang="en">EN</button>}
+</div>
