@@ -2,12 +2,14 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PostCard from '@/components/PostCard.astro';
-import { groupByCanonical, sortPosts } from '@/lib/blog';
+import TagCloud from '@/components/TagCloud.astro';
+import { collectTagStats, groupByCanonical, sortPosts } from '@/lib/blog';
 
 const allPosts = sortPosts((await getCollection('blog')).filter((post) => !post.data.draft));
 const grouped = Object.values(groupByCanonical(allPosts));
 const zhPosts = allPosts.filter((post) => post.data.lang === 'zh');
 const enPosts = allPosts.filter((post) => post.data.lang === 'en');
+const tagStats = collectTagStats(allPosts);
 ---
 <BaseLayout title="Blog" description="Jacky Ren 的中英文博客归档。">
   <section class="page-heading">
@@ -16,8 +18,22 @@ const enPosts = allPosts.filter((post) => post.data.lang === 'en');
     <p class="lang-panel" data-lang-panel="zh" lang="zh">所有文章都保留原文语言与译文关系。你可以切换语言，也可以在每篇文章里跳转到对应译本。</p>
     <p class="lang-panel" data-lang-panel="en" lang="en">Every post records its original language and translation relationship. Switch languages here, or jump between versions inside each article.</p>
   </section>
-  <section class="post-list post-list--archive lang-panel" data-lang-panel="zh" lang="zh" aria-label="中文文章">{zhPosts.map((post) => <PostCard post={post} />)}</section>
-  <section class="post-list post-list--archive lang-panel" data-lang-panel="en" lang="en" aria-label="English posts">{enPosts.map((post) => <PostCard post={post} />)}</section>
+  <div class="archive-layout">
+    <div class="archive-layout__main">
+      <section class="post-list post-list--archive lang-panel" data-lang-panel="zh" lang="zh" aria-label="中文文章">{zhPosts.map((post) => <PostCard post={post} />)}</section>
+      <section class="post-list post-list--archive lang-panel" data-lang-panel="en" lang="en" aria-label="English posts">{enPosts.map((post) => <PostCard post={post} />)}</section>
+    </div>
+    <div class="archive-layout__aside">
+      <TagCloud tags={tagStats} title="Keyword cloud" subtitle="按出现频次排序，数字显示覆盖文章数。" lang="zh" />
+      <section class="tag-index" aria-labelledby="tag-index-heading">
+        <p class="eyebrow">Index</p>
+        <h2 id="tag-index-heading">Tags by frequency</h2>
+        <ul>
+          {tagStats.map((tag) => <li id={`tag-${tag.slug}`}><span>{tag.name}</span><small>{tag.count} posts · {tag.langs.map((lang) => lang.toUpperCase()).join(' / ')}</small></li>)}
+        </ul>
+      </section>
+    </div>
+  </div>
   <section class="translation-map" aria-labelledby="translation-map-heading">
     <p class="eyebrow">Metadata</p>
     <h2 id="translation-map-heading">Originals and translations</h2>

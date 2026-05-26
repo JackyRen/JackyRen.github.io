@@ -1,0 +1,48 @@
+---
+import type { TagStat } from '@/lib/blog';
+
+interface Props {
+  tags: TagStat[];
+  title?: string;
+  subtitle?: string;
+  lang?: 'zh' | 'en';
+  compact?: boolean;
+}
+
+const {
+  tags,
+  title = 'Keyword cloud',
+  subtitle = 'A quick map of recurring topics across the archive.',
+  lang = 'en',
+  compact = false,
+} = Astro.props;
+
+const topCount = Math.max(...tags.map((tag) => tag.count), 1);
+const bottomCount = Math.min(...tags.map((tag) => tag.count), topCount);
+const spread = Math.max(topCount - bottomCount, 1);
+---
+<aside class:list={['tag-cloud-card', compact && 'tag-cloud-card--compact']} aria-labelledby="tag-cloud-title">
+  <div class="tag-cloud-card__header">
+    <p class="eyebrow">Tags</p>
+    <h2 id="tag-cloud-title">{title}</h2>
+    <p>{subtitle}</p>
+  </div>
+  <div class="tag-cloud" aria-label={lang === 'zh' ? '关键词云' : 'Keyword cloud'}>
+    {tags.map((tag) => {
+      const weight = (tag.count - bottomCount) / spread;
+      const size = `${0.88 + weight * 0.54}rem`;
+      const opacity = `${0.72 + weight * 0.28}`;
+      return (
+        <a
+          href={`/blog/#tag-${tag.slug}`}
+          class="tag-cloud__item"
+          style={`--tag-size:${size};--tag-opacity:${opacity};--tag-weight:${Math.round(650 + weight * 250)};`}
+          aria-label={`${tag.name}: ${tag.count} ${tag.count === 1 ? 'post' : 'posts'}`}
+        >
+          <span>{tag.name}</span>
+          <small>{tag.count}</small>
+        </a>
+      );
+    })}
+  </div>
+</aside>
