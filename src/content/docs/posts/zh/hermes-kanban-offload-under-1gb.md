@@ -1,12 +1,21 @@
 ---
 title: 我如何用不到 1GB 内存搭起 Hermes Kanban，并把工作 offload 到其他节点
 description: 记录一次把 Hermes 中央线程做轻、把真实执行交给 Boxd offload 节点的实践：Kanban 卡片、worker profile、systemd dispatcher 与可验证交付。
-pubDate: 2026-05-20
-tags: [Hermes, Kanban, Agent, Infrastructure]
+date: 2026-05-20
+author: Jacky Ren
+keywords: [Hermes, Kanban, Agent, Infrastructure]
 lang: zh
 originalLang: zh
 canonicalId: hermes-kanban-offload-under-1gb
+sidebar:
+  label: 我如何用不到 1GB 内存搭起 Hermes Kanban，并把工作 offload 到其他节点
 ---
+
+<div class="article-meta">
+  <span>发布日期: 2026-05-20</span>
+  <span>作者: Jacky Ren</span>
+  <span>关键词: Hermes、 Kanban、 Agent、 Infrastructure</span>
+</div>
 
 最近我的Hermes agent 工作流里碰到一个很烦的问题：一个 agent 很容易被长任务拖住, 常常有十几分钟，甚至1个小时的长任务，包含几十个tool use，例如改站点、跑浏览器测试、处理 OCR 文件、等 CI，都要一个线程挂在那里，内存、成本和注意力都会被一起占住。
 

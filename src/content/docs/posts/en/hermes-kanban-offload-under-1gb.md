@@ -1,13 +1,22 @@
 ---
 title: Keeping Hermes Kanban under 1GB with offloaded workers
 description: A practical note on keeping the central Hermes thread light while worker teams handle builds, browser checks, OCR, and reviewable handoffs through Kanban cards.
-pubDate: 2026-05-20
-tags: [Hermes, Kanban, Agent, Infrastructure]
+date: 2026-05-20
+author: Jacky Ren
+keywords: [Hermes, Kanban, Agent, Infrastructure]
 lang: en
 originalLang: zh
-translationOf: zh/hermes-kanban-offload-under-1gb
 canonicalId: hermes-kanban-offload-under-1gb
+translationOf: zh/hermes-kanban-offload-under-1gb
+sidebar:
+  label: Keeping Hermes Kanban under 1GB with offloaded workers
 ---
+
+<div class="article-meta">
+  <span>Published: 2026-05-20</span>
+  <span>Author: Jacky Ren</span>
+  <span>Keywords: Hermes、 Kanban、 Agent、 Infrastructure</span>
+</div>
 
 I recently hit an annoying limit in my Hermes agent workflow: one agent can get pinned by long-running work too easily. A site change, browser test, OCR pass, CI wait, or dependency issue can turn into dozens of tool calls and keep one thread pending for ten minutes, sometimes close to an hour. Memory, cost, and attention all get tied up at once.
 

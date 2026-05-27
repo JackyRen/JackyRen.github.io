@@ -1,12 +1,21 @@
 ---
 title: 轻量写作系统的边界
 description: 为什么一个个人博客应该先优化写作路径，而不是先堆功能。
-pubDate: 2026-05-18
-tags: [Writing, Systems]
+date: 2026-05-18
+author: Jacky Ren
+keywords: [Writing, Systems]
 lang: zh
 originalLang: zh
 canonicalId: lightweight-writing-system
+sidebar:
+  label: 轻量写作系统的边界
 ---
+
+<div class="article-meta">
+  <span>发布日期: 2026-05-18</span>
+  <span>作者: Jacky Ren</span>
+  <span>关键词: Writing、 Systems</span>
+</div>
 
 一个个人博客最重要的功能不是主题切换、搜索或评论，而是让作者愿意持续写。
 
