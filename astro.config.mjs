@@ -12,11 +12,39 @@ export default defineConfig({
       social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/JackyRen' }],
       sidebar: [
         { label: '首页 / Home', link: '/' },
-        { label: '关键词 / Keywords', link: '/keywords/' },
-        { label: '关于 / About', link: '/about/' },
+        {
+          label: '阅读 / Read',
+          items: [
+            { label: 'Posts', link: '/posts/' },
+            { label: 'Keywords', link: '/keywords/' },
+            { label: 'About', link: '/about/' },
+          ],
+        },
         {
           label: '文章 / Posts',
-          items: [{ autogenerate: { directory: 'posts' } }],
+          items: [
+            {
+              label: 'Hermes Kanban offload',
+              items: [
+                { label: '中文', link: '/posts/zh/hermes-kanban-offload-under-1gb/' },
+                { label: 'English', link: '/posts/en/hermes-kanban-offload-under-1gb/' },
+              ],
+            },
+            {
+              label: 'How this blog was built',
+              items: [
+                { label: '中文', link: '/posts/zh/welcome-to-the-blog/' },
+                { label: 'English', link: '/posts/en/welcome-to-the-blog/' },
+              ],
+            },
+            {
+              label: 'Lightweight writing system',
+              items: [
+                { label: '中文', link: '/posts/zh/building-a-lightweight-writing-system/' },
+                { label: 'English', link: '/posts/en/building-a-lightweight-writing-system/' },
+              ],
+            },
+          ],
         },
       ],
     }),
