@@ -1,13 +1,23 @@
 ---
 title: 这个博客是如何搭建和优化起来的
 description: 记录 JackyRen.github.io 从空仓库到 Astro 双语 GitHub Pages 站点的搭建过程，以及 Hermes/hmworker/Boxd agent 工作流。
-pubDate: 2026-05-19
+date: 2026-05-19
+author: Jacky Ren
+lastUpdated: 2026-05-20
 updatedDate: 2026-05-20
-tags: [Astro, GitHub Pages, Hermes, Agent]
+keywords: [Astro, GitHub Pages, Hermes, Agent]
 lang: zh
 originalLang: zh
 canonicalId: welcome-to-the-blog
+sidebar:
+  label: 这个博客是如何搭建和优化起来的
 ---
+
+<div class="article-meta">
+  <span>发布日期: 2026-05-19</span>
+  <span>作者: Jacky Ren</span>
+  <span>关键词: Astro、 GitHub Pages、 Hermes、 Agent</span>
+</div>
 
 这篇文章是这个博客的第一篇内容，也是一份搭建记录：它说明这个站点用了什么框架、为什么适合部署到 GitHub Pages，以及这次是如何通过 Hermes agent 在远程环境里完成开发、验证和提交流程的。
 

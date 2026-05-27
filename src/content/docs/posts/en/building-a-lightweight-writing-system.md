@@ -1,13 +1,22 @@
 ---
 title: Boundaries for a lightweight writing system
 description: Why a personal blog should optimize the publishing path before adding features.
-pubDate: 2026-05-18
-tags: [Writing, Systems]
+date: 2026-05-18
+author: Jacky Ren
+keywords: [Writing, Systems]
 lang: en
 originalLang: zh
-translationOf: zh/building-a-lightweight-writing-system
 canonicalId: lightweight-writing-system
+translationOf: zh/building-a-lightweight-writing-system
+sidebar:
+  label: Boundaries for a lightweight writing system
 ---
+
+<div class="article-meta">
+  <span>Published: 2026-05-18</span>
+  <span>Author: Jacky Ren</span>
+  <span>Keywords: Writing、 Systems</span>
+</div>
 
 The most important feature of a personal blog is not a theme switcher, search, or comments. It is making the writer want to keep writing.
 

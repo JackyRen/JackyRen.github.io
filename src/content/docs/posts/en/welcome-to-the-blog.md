@@ -1,14 +1,24 @@
 ---
 title: How this blog was built and refined
 description: A build note for turning JackyRen.github.io into a bilingual Astro site on GitHub Pages with a Hermes/hmworker/Boxd agent workflow.
-pubDate: 2026-05-19
+date: 2026-05-19
+author: Jacky Ren
+lastUpdated: 2026-05-20
 updatedDate: 2026-05-20
-tags: [Astro, GitHub Pages, Hermes, Agent]
+keywords: [Astro, GitHub Pages, Hermes, Agent]
 lang: en
 originalLang: zh
-translationOf: zh/welcome-to-the-blog
 canonicalId: welcome-to-the-blog
+translationOf: zh/welcome-to-the-blog
+sidebar:
+  label: How this blog was built and refined
 ---
+
+<div class="article-meta">
+  <span>Published: 2026-05-19</span>
+  <span>Author: Jacky Ren</span>
+  <span>Keywords: Astro、 GitHub Pages、 Hermes、 Agent</span>
+</div>
 
 This first post is also a build note. It explains why the site uses Astro, how it is deployed to GitHub Pages, and how a Hermes agent workflow handled the implementation, verification, and pull request.
 
